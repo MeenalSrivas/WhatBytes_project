@@ -1,7 +1,8 @@
-// types/index.ts
 export interface Product {
-  id: string;
+  id:string;
   title :string;
   image: string;
   price: string; 
+  description: string,
+  categoryName: string,
 }

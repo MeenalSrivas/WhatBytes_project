@@ -1,7 +1,6 @@
-// app/page.tsx
 import Sidebar from '../components/Sidebar';      
 import ProductGrid from '../components/ProductGrid';  
-import type { Product } from '../types';     
+import  { Product } from '../types';     
 import { SampleProducts } from '../lib/data';      
 
 

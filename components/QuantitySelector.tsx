@@ -5,20 +5,23 @@ import { Minus, Plus } from 'lucide-react';
 
 interface QuantitySelectorProps {
   initialQuantity?: number;
+  onQuantityChange?: (quantity: number) => void;
 }
 
-export function QuantitySelector({ initialQuantity = 1 }: QuantitySelectorProps) {
+export function QuantitySelector({ initialQuantity = 1, onQuantityChange }: QuantitySelectorProps) {
   const [quantity, setQuantity] = useState(initialQuantity);
 
   const handleDecrement = () => {
     const newQuantity = Math.max(1, quantity - 1); 
     setQuantity(newQuantity);
+    if (onQuantityChange) onQuantityChange(newQuantity);
     
   };
 
   const handleIncrement = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
+    if (onQuantityChange) onQuantityChange(newQuantity);
     
   };
 

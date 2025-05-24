@@ -1,7 +1,9 @@
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
 
 import type { Product } from '../types'; 
+import { useCart } from '../app/context/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -9,6 +11,13 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { id, image, title, price } = product; 
+   const { addToCart } = useCart();
+
+   const handleAddToCart = () => {
+    addToCart(product, 1); // Add 1 quantity by default from product card
+    // Optionally, show a notification
+    console.log(`${title} added to cart`);
+  };
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden flex flex-col group">
       <Link href={`/product/${id}`} className="block"> 
@@ -35,8 +44,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         <p className="text-lg font-bold text-gray-900 mb-3">{price}</p>
 
-        {/* "Add to Cart" button pushed to the bottom */}
-        <button className="mt-auto w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 text-sm">
+        <button
+          onClick={handleAddToCart} // Call handleAddToCart
+          className="mt-auto w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200 text-sm"
+        >
           Add to Cart
         </button>
       </div>

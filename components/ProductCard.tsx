@@ -1,22 +1,20 @@
-// components/ProductCard.tsx
 import Image from 'next/image';
 import Link from 'next/link';
-// No longer need 'Star' from lucide-react for this component
-import type { Product } from '../types'; // Relative path
+
+import type { Product } from '../types'; 
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { id, image, title, price } = product; // Removed rating, description, categoryName
-
+  const { id, image, title, price } = product; 
   return (
     <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden flex flex-col group">
-      <Link href={`/product/${id}`} className="block"> {/* Link the image to product detail page */}
-        <div className="relative w-full aspect-square overflow-hidden"> {/* Consistent square aspect ratio */}
+      <Link href={`/product/${id}`} className="block"> 
+        <div className="relative w-full aspect-square overflow-hidden"> 
           <Image
-            src={image || '/images/placeholder-product.jpg'} // Fallback image
+            src={image || '/images/placeholder-product.jpg'} 
             alt={title}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
@@ -25,11 +23,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
       </Link>
 
-      <div className="p-4 flex flex-col flex-grow"> {/* flex-grow to push button down */}
-        <Link href={`/product/${id}`} className="block"> {/* Link the title to product detail page */}
+      <div className="p-4 flex flex-col flex-grow"> 
+        <Link href={`/product/${id}`} className="block">
           <h3
             className="text-md font-semibold text-gray-800 group-hover:text-blue-600 truncate mb-1"
-            title={title} // Show full title on hover if truncated
+            title={title} 
           >
             {title}
           </h3>

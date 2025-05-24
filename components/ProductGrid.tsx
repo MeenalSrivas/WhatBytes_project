@@ -1,6 +1,5 @@
-// components/ProductGrid.tsx
-import ProductCard from './ProductCard'; // Relative path
-import  { Product } from '../types';  // Relative path
+import ProductCard from './ProductCard'; 
+import  { Product } from '../types'; 
 
 interface ProductGridProps {
   products: Product[];
@@ -11,11 +10,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
     return <p className="text-center text-gray-500 col-span-full">No products found.</p>;
   }
 
-  // The expanded card in the image (Smartphone) seems to take more vertical space.
-  // A true masonry or variable height grid is more complex.
-  // For this example, we'll use a standard grid and let content flow.
-  // The "Smartphone" card has more content, so it will naturally be taller.
-  // If you want it to span columns, that would need more specific logic based on product ID or type.
+ 
   return (
     <section>
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Product Listing</h1>

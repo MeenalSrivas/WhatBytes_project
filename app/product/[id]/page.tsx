@@ -2,7 +2,7 @@ import { use } from 'react';
 
 import { notFound } from 'next/navigation';
 import { getProductById } from '../../../lib/data'; 
-import ProductDetailsClientUI from '../../../components/ProductDetailClient'; // Adjust path if needed
+import ProductDetailsClientUI from '../../../components/ProductDetailClient'; 
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   console.log('[generateMetadata] Received params:', params);
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 
-export default async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
+export default function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
 
   const resolvedParams = use(props.params);
   const id: string = resolvedParams.id;

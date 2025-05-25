@@ -18,10 +18,11 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 
-export default function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
+export default async function ProductDetailPage({ params }: { params: { id: string } }) {
 
-  const resolvedParams = use(props.params);
-  const id: string = resolvedParams.id;
+  //const resolvedParams = use(props.params);
+  //const id: string = resolvedParams.id;
+  const id = params.id; 
 
   const product = getProductById(id); 
 
@@ -31,8 +32,7 @@ export default function ProductDetailPage(props: { params: Promise<{ id: string 
     return null; 
   }
 
-  console.log(`[ProductDetailPage] Product found: ${product.title}`);
-  console.log('--- [ProductDetailPage END] ---');
+
 
   
   return <ProductDetailsClientUI product={product} />;

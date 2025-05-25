@@ -1,3 +1,4 @@
+import { use } from 'react';
 
 import { notFound } from 'next/navigation';
 import { getProductById } from '../../../lib/data'; 
@@ -17,19 +18,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 
-export default async function ProductDetailPage({ params }: { params: { id: string } }) {
-  console.log('--- [ProductDetailPage START] ---');
-  console.log('[ProductDetailPage] Received props.params:', params);
+export default async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
 
-  if (!params || typeof params.id !== 'string') {
-    console.error('[ProductDetailPage] ERROR: Invalid params object or params.id is not a string.');
-    console.log('[ProductDetailPage] Params received:', params);
-    notFound(); 
-    return null; 
-  }
-
-  const id: string = params.id; 
-  console.log(`[ProductDetailPage] Extracted id: "${id}" (type: ${typeof id})`);
+  const resolvedParams = use(props.params);
+  const id: string = resolvedParams.id;
 
   const product = getProductById(id); 
 

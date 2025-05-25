@@ -1,19 +1,12 @@
-// app/cart/page.tsx
-"use client"; // This page is now interactive and uses client-side state
+"use client"; 
 
 import Link from 'next/link';
 import Image from 'next/image';
 import {QuantitySelector} from '../../components/QuantitySelector';
 import { Trash2 } from 'lucide-react';
-import { useCart } from '../context/CartContext'; // Import useCart
+import { useCart } from '../context/CartContext'; 
 
-// Remove MockCartItem type and mock data, as we'll use actual cart data
 
-// export const metadata: Metadata = { // Metadata for client components is handled differently or via generateMetadata if part remains server
-//   title: 'Your Shopping Cart',
-//   description: 'Review items in your shopping cart and proceed to checkout.',
-// };
-// For client components, set title using useEffect or a library if needed, or rely on layout's metadata.
 
 export default function CartPage() {
   const { items, updateItemQuantity, removeFromCart, totalItems, totalPrice } = useCart();
@@ -22,7 +15,7 @@ export default function CartPage() {
     return (
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-4">Your Cart is Empty</h1>
-        <p className="text-gray-600 mb-8">Looks like you haven't added anything to your cart yet.</p>
+        <p className="text-gray-600 mb-8">Looks like you have not  added anything to your cart yet.</p>
         <Link
           href="/"
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-150 ease-in-out"
@@ -35,7 +28,7 @@ export default function CartPage() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <title>Your Shopping Cart</title> {/* Simple way to set title client-side */}
+      <title>Your Shopping Cart</title> 
       <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">Your Shopping Cart</h1>
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
         <div className="lg:w-2/3">
@@ -46,7 +39,7 @@ export default function CartPage() {
 
               return (
                 <div
-                  key={item.id} // Use product ID as key if cart item ID is not separate
+                  key={item.id} 
                   className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 border border-gray-200 rounded-lg shadow-sm bg-white"
                 >
                   <div className="relative w-24 h-24 sm:w-20 sm:h-20 rounded-md overflow-hidden flex-shrink-0">
@@ -58,7 +51,7 @@ export default function CartPage() {
                     />
                   </div>
                   <div className="flex-grow">
-                    <Link href={`/product/${item.id}`} className="hover:text-blue-600"> {/* Link to product id */}
+                    <Link href={`/product/${item.id}`} className="hover:text-blue-600">
                       <h2 className="text-lg font-semibold text-gray-800">{item.title}</h2>
                     </Link>
                     <p className="text-sm text-gray-500 mt-1">{item.price} (each)</p>
@@ -118,5 +111,4 @@ export default function CartPage() {
   );
 }
 
-// Example: Define a placeholder shipping cost or logic if not part of your context
-const shippingCost = 5.00; // Or more complex logic
+const shippingCost = 5.00; 

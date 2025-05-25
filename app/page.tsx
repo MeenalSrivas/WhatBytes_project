@@ -1,7 +1,6 @@
 "use client";
 import Sidebar from '../components/Sidebar';      
 import ProductGrid from '../components/ProductGrid';  
-import  { Product } from '../types';     
 import { SampleProducts } from '../lib/data'; 
 import { useSearchParams } from 'next/navigation'; 
 import { useMemo } from 'react';     

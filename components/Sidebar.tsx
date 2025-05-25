@@ -1,6 +1,62 @@
-export default function Sidebar() {
+"use client";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+
+interface SidebarProps {
+  
+  priceSliderMax: number;
+}
+
+const DEFAULT_CATEGORY = "All";
+
+
+export default function Sidebar({ priceSliderMax }: SidebarProps) {
   const categories = ['All', 'Electronics', 'Clothing', 'Home'];
-  const brands = ['All', 'Electronics brand', 'accesories brand', 'clothing brand']; 
+  const brands = ['All', 'Electronics brand', 'accesories brand', 'clothing brand'];
+  
+  
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [currentCategory, setCurrentCategory] = useState(DEFAULT_CATEGORY);
+  const [currentMaxPrice, setCurrentMaxPrice] = useState(priceSliderMax);
+
+  useEffect(() => {
+    setCurrentCategory(searchParams.get('category') || DEFAULT_CATEGORY);
+    setCurrentMaxPrice(parseInt(searchParams.get('maxPrice') || priceSliderMax.toString(), 10));
+  }, [searchParams, priceSliderMax]);
+
+  const updateURLFilters = useCallback((newFilterParams: Record<string, string>) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+
+    for (const key in newFilterParams) {
+      const value = String(newFilterParams[key]);
+      if (key === "category" && value.toLowerCase() === DEFAULT_CATEGORY.toLowerCase()) {
+        current.delete(key);
+      } else if (key === "maxPrice" && value === String(priceSliderMax)) {
+        current.delete(key);
+      } else if (value) {
+        current.set(key, value);
+      } else {
+        current.delete(key);
+      }
+    }
+    
+    const query = current.toString();
+    router.push(`/${query ? `?${query}` : ''}`, { scroll: false });
+  }, [router, searchParams, priceSliderMax]);
+
+  const handleCategoryChange = (category: string) => {
+    //setCurrentCategory(category);
+    updateURLFilters({ category });
+  };
+
+  const handleMaxPriceChange = (price: number) => {
+    setCurrentMaxPrice(price);
+    updateURLFilters({ maxPrice: price.toString() });
+  };
+
+ 
 
   return (
     <aside className="rounded-lg shadow-lg overflow-hidden"> 
@@ -11,15 +67,18 @@ export default function Sidebar() {
       <div className="mb-8">
         <h3 className="text-lg font-medium mb-3">Category</h3>
         <ul className="space-y-2 text-sm">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <li key={category}>
+            
               <label className="flex items-center cursor-pointer">
                 <input
                   type="radio" 
                   name="category"
                   value={category.toLowerCase()}
-                  className="h-4 w-4 text-blue-300 bg-blue-600 border-blue-400 rounded-full focus:ring-blue-400 focus:ring-offset-blue-700 form-radio"
-                  defaultChecked={index === 0} 
+                  checked={currentCategory === category}
+                  
+                  onChange={() => handleCategoryChange(category)}
+                  className="form-radio h-4 w-4 rounded-full bg-blue-600 border-2 border-blue-400 group-hover:border-blue-200 focus:ring-offset-0 focus:ring-offset-blue-600 focus:ring-blue-300 checked:bg-white checked:border-transparent"                  
                 />
                 <span className="ml-2">{category}</span>
               </label>
@@ -29,17 +88,18 @@ export default function Sidebar() {
       </div>
 
       <div className="mb-2">
-        <h3 className="text-lg font-medium mb-3">Price</h3>
+        <h3 className="text-lg font-medium mb-3">Max Price: ${currentMaxPrice}</h3>
         <input
           type="range"
           min="0"
-          max="1000"
-          defaultValue="0" 
+          max={priceSliderMax}
+          value={currentMaxPrice} 
+          onChange={(e) => handleMaxPriceChange(Number(e.target.value))}
           className="w-full h-2 bg-blue-400 rounded-lg appearance-none cursor-pointer"
         />
         <div className="flex justify-between text-xs mt-2 px-1">
           <span>0</span>
-          <span>1000</span>
+          <span>${priceSliderMax}</span>
         </div>
       </div>
       </div>

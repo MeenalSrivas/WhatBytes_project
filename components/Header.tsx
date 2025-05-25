@@ -33,7 +33,9 @@ const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link href="/" className="text-3xl font-bold text-gray-800">
-          <ShoppingBag />
+          <ShoppingBag className="text-blue-600 hover:text-blue-700 transition-colors duration-200" // Example: Use your theme's blue
+    size={36} // Explicitly set size (e.g., 32, 36, 40, 48 pixels)
+    strokeWidth={2} />
         </Link>
 
         <form

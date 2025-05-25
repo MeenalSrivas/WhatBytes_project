@@ -4,19 +4,6 @@ import { notFound } from 'next/navigation';
 import { getProductById } from '../../../lib/data'; 
 import ProductDetailsClientUI from '../../../components/ProductDetailClient'; 
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  console.log('[generateMetadata] Received params:', params);
-  if (!params || typeof params.id !== 'string') {
-    console.error('[generateMetadata] Invalid params or params.id for metadata:', params);
-    return { title: 'Error loading product metadata' };
-  }
-  const product = getProductById(params.id);
-  if (!product) {
-    return { title: 'Product Not Found' };
-  }
-  return { title: product.title, description: product.description };
-}
-
 
 export default function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
 

@@ -1,4 +1,4 @@
-import { use } from 'react';
+//import { use } from 'react';
 
 import { notFound } from 'next/navigation';
 import { getProductById } from '../../../lib/data'; 

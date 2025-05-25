@@ -1,4 +1,4 @@
-//import { use } from 'react';
+import { use } from 'react';
 
 import { notFound } from 'next/navigation';
 import { getProductById } from '../../../lib/data'; 
@@ -18,11 +18,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 
-export default async function ProductDetailPage({ params }: { params: { id: string } }) {
+export default function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
 
-  //const resolvedParams = use(props.params);
-  //const id: string = resolvedParams.id;
-  const id = params.id; 
+  const resolvedParams = use(props.params);
+  const id: string = resolvedParams.id;
 
   const product = getProductById(id); 
 
@@ -32,7 +31,8 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
     return null; 
   }
 
-
+  console.log(`[ProductDetailPage] Product found: ${product.title}`);
+  console.log('--- [ProductDetailPage END] ---');
 
   
   return <ProductDetailsClientUI product={product} />;

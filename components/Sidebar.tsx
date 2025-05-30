@@ -8,6 +8,7 @@ interface SidebarProps {
 }
 
 const DEFAULT_CATEGORY = "All";
+const Default_brand = "All";
 
 
 export default function Sidebar({ priceSliderMax }: SidebarProps) {
@@ -20,6 +21,14 @@ export default function Sidebar({ priceSliderMax }: SidebarProps) {
 
   const [currentCategory, setCurrentCategory] = useState(DEFAULT_CATEGORY);
   const [currentMaxPrice, setCurrentMaxPrice] = useState(priceSliderMax);
+  const [currentBrand, setCurrentBrand] = useState(Default_brand);
+
+useEffect(() =>{
+  setCurrentBrand(searchParams.get('brand') || Default_brand);
+
+},[searchParams])
+
+ 
 
   useEffect(() => {
     setCurrentCategory(searchParams.get('category') || DEFAULT_CATEGORY);
